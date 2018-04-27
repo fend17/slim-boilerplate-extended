@@ -46,7 +46,7 @@ $container['Cats'] = function ($c) {
 
 # Deploying
 
-1. Create an account on [Heroku](https://heroku.com/) and rememeber your username and password, they will be needed in a later step.
+1. Create an account on [Heroku](https://heroku.com/) and remember your username and password, they will be needed in a later step.
 2. Install [Heroku toolbelt](https://devcenter.heroku.com/articles/heroku-cli), follow the instructions at the link.
 3. Login via your terminal by running: `heroku login`.
 4. Make sure you are standing in the root folder of the project, check with `pwd` in the terminal.

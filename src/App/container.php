@@ -32,7 +32,7 @@ $container = new \Slim\Container(['settings' => $config]);
 $container['db'] = function ($c) {
     $db = $c['settings']['db'];
     $pdo = new PDO(
-      'mysql:host=' . $db['host'] . ';dbname=' . $db['dbname'],
+      'mysql:host=' . $db['host'] . ';dbname=' . $db['dbname'] . ';charset=utf8',
       $db['user'],
       $db['pass']
     );
