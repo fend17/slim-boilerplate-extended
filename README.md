@@ -2,6 +2,10 @@
 
 > API Boilerplate for [Slim Framework](https://www.slimframework.com/docs/) with JWT-auth. 
 
+This repository has two branches:
+* `master` : session based authentication
+* `jwt`: JWT based authentication
+
 ## Installation
 
 0. Install `PHP` so you can use it via your terminal: [Installation Instructions](https://github.com/fend17/cms-php-mysql/blob/master/installation.md#sv%C3%A5ra-s%C3%A4ttetd)
