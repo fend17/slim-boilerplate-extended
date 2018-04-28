@@ -1,6 +1,6 @@
 # Slim Boilerplate
 
-> Boilerplate for [Slim Framework](https://www.slimframework.com/docs/)
+> API Boilerplate for [Slim Framework](https://www.slimframework.com/docs/) with JWT-auth. 
 
 ## Installation
 

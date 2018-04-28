@@ -20,8 +20,7 @@ require_once '../../vendor/autoload.php';
 
 $container = require '../App/container.php';
 $app = new \Slim\App($container);
-$auth = require '../App/auth.php';
-require '../App/cors.php';
+require '../App/middleware.php';
 
 
 /********************************
@@ -44,9 +43,33 @@ $app->post('/login', function ($request, $response, $args) {
         ':username' => $body['username']
     ]);
     $user = $fetchUserStatement->fetch();
+    /**
+     * If the the hash matches the password passed by the user -> create token
+     */
     if (password_verify($body['password'], $user['password'])) {
-        $_SESSION['loggedIn'] = true;
-        return $response->withJson(['data' => [ $user['id'], $user['username'] ]]);
+        $secret = getenv("JWT_TOKEN");
+
+        /**
+         * The payload consists of the users ID so it can be decoded easily, we may want to
+         * use a different claim later on: https://jwt.io/introduction/
+         * Either way, we want to add a time from when the token is accepted to when it should be
+         * invalidated, this is done with 'iat' and 'exp'
+         */
+        $payload = [
+            "id" => $user['id'],
+            "iat" => (new DateTime())->getTimeStamp(),
+            "exp" => (new DateTime("now +2 hours"))->getTimeStamp()
+        ];
+
+        /**
+         * Create the token by combining the secret, the payload and also whitelisting
+         * what algorithm that should be used.
+         */
+        $token = \Firebase\JWT\JWT::encode($payload, $secret, "HS256");
+        /**
+         * And pass the token back to the yser
+         */
+        return $response->withJson(['token' => $token]);
     }
     return $response->withJson(['error' => 'wrong password']);
 });
@@ -115,6 +138,6 @@ $app->group('/api', function () use ($app) {
         $newTodo = $this->get('Todos')->add($body);
         return $response->withJson(['data' => $newTodo]);
     });
-})->add($auth);
+});
 
 $app->run();

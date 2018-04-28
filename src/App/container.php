@@ -42,6 +42,8 @@ $container['db'] = function ($c) {
     return $pdo;
 };
 
+
+
 /**
  * We are also injecting a logging function so we can easier spot
  * and log errors that occur.
@@ -52,6 +54,26 @@ $container['logger'] = function ($c) {
     $logger->pushHandler($file_handler);
     return $logger;
 };
+
+/**
+ * The auth middleware is only active on the path: '/api'
+ * and will return a 401 response if the token isn't valid.
+ * The middleware is only responsible for checking the token
+ */
+$container["JwtAuthentication"] = function ($container) {
+    return new \Tuupola\Middleware\JwtAuthentication([
+        "path" => "/api",
+        "ignore" => ["/token", "/info"],
+        "secret" => getenv("JWT_TOKEN"),
+        "logger" => $container["logger"],
+        "attribute" => false,
+        "relaxed" => ["192.168.50.52", "127.0.0.1", "localhost"],
+        "error" => function ($response, $arguments) {
+            return $response->withStatus(401)->withJson(["error" => "Unauthorized"]);
+        }
+    ]);
+};
+
 
 /**
  * This is so we can display a frontpage. Otherwise Slim is only designed
