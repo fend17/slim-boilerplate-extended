@@ -16,7 +16,7 @@ This repository has two branches:
 
 3 . Clone this repository: `git clone` somwhere on your computer, doesn't matter where.
 ```bash
-https://github.com/fend17/slim-boilerplate-extended
+git clone https://github.com/fend17/slim-boilerplate-extended
 ```
 
 4 . `cd` into the cloned repository, assuming you didn't rename your clone:
@@ -75,7 +75,21 @@ $container['Cats'] = function ($c) {
 };
 ```
 
-# Deploying
+## Troubleshooting
+
+If you are getting this error on **Windows**:
+```
+mysql driver not found
+```
+
+Find your `php.ini`-file and remove the semicolon in front of this line in the config-file:
+```ini
+extension=pdo_mysql.so
+```
+
+Then restart your PHP-server.
+
+## Deploying
 
 1. Create an account on [Heroku](https://heroku.com/) and remember your username and password, they will be needed in a later step.
 2. Install [Heroku toolbelt](https://devcenter.heroku.com/articles/heroku-cli), follow the instructions at the link.
