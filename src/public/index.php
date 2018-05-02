@@ -28,6 +28,15 @@ require '../App/cors.php';
  *          ROUTES              *
  ********************************/
 
+
+$app->get('/', function ($request, $response, $args) {
+    /**
+     * This fetches the 'index.php'-file inside the 'views'-folder
+     */
+    return $this->view->render($response, 'index.php');
+});
+
+
 /**
  * I added basic inline login functionality. This could be extracted to a
  * separate class. If the session is set is checked in 'auth.php'
@@ -46,6 +55,7 @@ $app->post('/login', function ($request, $response, $args) {
     $user = $fetchUserStatement->fetch();
     if (password_verify($body['password'], $user['password'])) {
         $_SESSION['loggedIn'] = true;
+        $_SESSION['userID'] = $user['id'];
         return $response->withJson(['data' => [ $user['id'], $user['username'] ]]);
     }
     return $response->withJson(['error' => 'wrong password']);
@@ -67,14 +77,6 @@ $app->get('/logout', function ($request, $response, $args) {
  */
 $app->group('/api', function () use ($app) {
 
-    // GET http://localhost:XXXX/api
-    $app->get('/', function ($request, $response, $args) {
-        /**
-         * This fetches the 'index.php'-file inside the 'views'-folder
-         */
-        return $this->view->render($response, 'index.php');
-    });
-
     // GET http://localhost:XXXX/api/todos
     $app->get('/todos', function ($request, $response, $args) {
         /**
@@ -82,7 +84,7 @@ $app->group('/api', function () use ($app) {
          * in 'App/container.php'. This makes it easier for us to call the database
          * inside our routes.
          */
-        $allTodos = $this->get('Todos')->getAll();
+        $allTodos = $this->todos->getAll();
         /**
          * Wrapping the data when returning as a safety thing
          * https://www.owasp.org/index.php/AJAX_Security_Cheat_Sheet#Server_Side
@@ -100,7 +102,7 @@ $app->group('/api', function () use ($app) {
          * https://www.slimframework.com/docs/v3/objects/router.html#route-placeholders
          */
         $id = $args['id'];
-        $singleTodo = $this->get('Todos')->getOne($id);
+        $singleTodo = $this->todos->getOne($id);
         return $response->withJson(['data' => $singleTodo]);
     });
 
@@ -112,7 +114,7 @@ $app->group('/api', function () use ($app) {
          * https://www.slimframework.com/docs/v3/objects/request.html#the-request-body
          */
         $body = $request->getParsedBody();
-        $newTodo = $this->get('Todos')->add($body);
+        $newTodo = $this->todos->add($body);
         return $response->withJson(['data' => $newTodo]);
     });
 });
