@@ -115,6 +115,6 @@ $app->group('/api', function () use ($app) {
         $newTodo = $this->get('Todos')->add($body);
         return $response->withJson(['data' => $newTodo]);
     });
-})->add($auth);
+});
 
 $app->run();

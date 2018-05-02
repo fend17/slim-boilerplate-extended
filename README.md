@@ -56,4 +56,5 @@ $container['Cats'] = function ($c) {
 4. Make sure you are standing in the root folder of the project, check with `pwd` in the terminal.
 4. Run: `heroku create my-cool-project-name` and replace `my-cool-project-name` with the name of your choice.
 5. Run: `heroku addons:create cleardb:ignite --fork=mysql://root:root@localhost/todos` and exchange your credentials (username: `root`, password: `root`) and the database that you want to export (`todos` is just an example).
-6. Run: `heroku open` to go to your created site.
+6. `git push -u heroku master`
+7. Run: `heroku open` to go to your created site.

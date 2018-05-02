@@ -1,4 +1,6 @@
 {
+    "name": "slim-boilerplate-extended",
+    "description": "base for API",
     "require": {
         "slim/slim": "^3.0",
         "monolog/monolog": "^1.23",
