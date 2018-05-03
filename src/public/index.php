@@ -124,7 +124,7 @@ $app->group('/api', function () use ($app) {
         $allUsers = $this->users->getAll();
         return $response->withJson($allUsers);
     });
-    
+
     $app->get('/users/{id}', function ($request, $response, $args) {
         $allUsers = $this->users->getOne($args['id']);
         return $response->withJson($allUsers);

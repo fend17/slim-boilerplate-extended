@@ -18,7 +18,9 @@ function postTodo(){
 
   const postOptions = {
     method: 'POST',
-    body: formData
+    body: formData,
+    // MUCH IMPORTANCE!
+    credentials: 'include'
   }
 
   fetch('api/todos', postOptions)
@@ -35,7 +37,9 @@ function login(){
   formData.append('password', 'bunneltan');
   const postOptions = {
     method: 'POST',
-    body: formData
+    body: formData,
+    // DON'T FORGET
+    credentials: 'include'
   }
 
   fetch('/login', postOptions)
@@ -44,7 +48,6 @@ function login(){
 }
 
 login();
-
 
 const addTodoButton = document.getElementById('addTodo');
 addTodoButton.addEventListener('click', postTodo);
