@@ -21,7 +21,7 @@ class UserController
 
     public function getOne($id)
     {
-        $getOneUser = $this->db->prepare("SELECT * FROM users WHERE id = : id");
+        $getOneUser = $this->db->prepare("SELECT * FROM users WHERE id = :id");
         $getOneUser->execute([
           ":id" => $id
         ]);
