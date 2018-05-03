@@ -13,6 +13,11 @@
   <h1>Frontpage</h1>
   <input type="text" id="todoInput">
   <button id="addTodo">Add Todo</button>
+
+  <form action="" id="newTodo">
+    <input type="text" name="content">
+    <input type="submit">
+  </form>
   <script src="scripts/main.js"></script>
 </body>
 

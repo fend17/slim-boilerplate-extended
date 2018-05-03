@@ -1,5 +1,5 @@
 function main(){
-  fetch('api/todos/1')
+  fetch('api/todos')
     .then(res => res.json())
     .then(console.log);
 }
@@ -47,7 +47,11 @@ function login(){
     .then(console.log);
 }
 
-login();
+const form = document.getElementById('newTodo');
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+});
 
 const addTodoButton = document.getElementById('addTodo');
 addTodoButton.addEventListener('click', postTodo);
