@@ -28,5 +28,23 @@ function postTodo(){
     });
 }
 
+
+function login(){
+  const formData = new FormData();
+  formData.append('username', 'goran');
+  formData.append('password', 'bunneltan');
+  const postOptions = {
+    method: 'POST',
+    body: formData
+  }
+
+  fetch('/login', postOptions)
+    .then(res => res.json())
+    .then(console.log);
+}
+
+login();
+
+
 const addTodoButton = document.getElementById('addTodo');
 addTodoButton.addEventListener('click', postTodo);
