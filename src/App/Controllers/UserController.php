@@ -13,5 +13,20 @@ class UserController
 
     public function getAll()
     {
+        $getAllUsers = $this->db->prepare("SELECT * FROM users");
+        $getAllUsers->execute();
+        $allUsers = $getAllUsers->fetchAll();
+        return $allUsers;
+    }
+
+    public function getOne($id)
+    {
+        $getOneUser = $this->db->prepare("SELECT * FROM users WHERE id = : id");
+        $getOneUser->execute([
+          ":id" => $id
+        ]);
+        // Fetch -> single resource
+        $oneUser = $getOneUser->fetch();
+        return $oneUser;
     }
 }

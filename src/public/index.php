@@ -121,10 +121,11 @@ $app->group('/api', function () use ($app) {
     });
 
     $app->get('/users', function ($request, $response, $args) {
-        // $this->users->getAll();
-        $getAllUsers = $this->db->prepare("SELECT * FROM USERS");
-        $getAllUsers->execute();
-        $allUsers = $getAllUsers->fetchAll();
+        $allUsers = $this->users->getAll();
+        return $response->withJson($allUsers);
+    });
+    $app->get('/users/{id}', function ($request, $response, $args) {
+        $allUsers = $this->users->getOne($args['id']);
         return $response->withJson($allUsers);
     });
 });
