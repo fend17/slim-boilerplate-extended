@@ -65,6 +65,7 @@ $app->post('/login', function ($request, $response, $args) {
  * Basic implementation, implement a better response
  */
 $app->get('/logout', function ($request, $response, $args) {
+    // No request data is being sent
     session_destroy();
     return $response->withJson('Success');
 });
@@ -84,6 +85,7 @@ $app->group('/api', function () use ($app) {
          * in 'App/container.php'. This makes it easier for us to call the database
          * inside our routes.
          */
+        // $this === $app
         $allTodos = $this->todos->getAll();
         /**
          * Wrapping the data when returning as a safety thing
@@ -116,6 +118,14 @@ $app->group('/api', function () use ($app) {
         $body = $request->getParsedBody();
         $newTodo = $this->todos->add($body);
         return $response->withJson(['data' => $newTodo]);
+    });
+
+    $app->get('/users', function ($request, $response, $args) {
+        // $this->users->getAll();
+        $getAllUsers = $this->db->prepare("SELECT * FROM USERS");
+        $getAllUsers->execute();
+        $allUsers = $getAllUsers->fetchAll();
+        return $response->withJson($allUsers);
     });
 });
 

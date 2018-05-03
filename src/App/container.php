@@ -69,9 +69,15 @@ $container['view'] = function ($container) {
  * $c always refers to the whole container. So calling $c->get('db') is the same
  * as calling $this->get('db') in our routes in index.php
  */
+
 $container['todos'] = function ($c) {
     $todosController = new TodoController($c->get('db'));
     return $todosController;
+};
+
+$container['users'] = function ($c) {
+    $userControllers = new \App\Controllers\UserController($c->get('db'));
+    return $userControllers;
 };
 
 return $container;
