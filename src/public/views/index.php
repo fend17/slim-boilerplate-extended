@@ -6,11 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/style.css">
-  <title>Frontend</title>
+  <title>Frontpage</title>
 </head>
 
 <body>
-  <h1>Hello from the Frontend!</h1>
+  <h1>Frontpage</h1>
+  <input type="text" id="todoInput">
+  <button id="addTodo">Add Todo</button>
   <script src="scripts/main.js"></script>
 </body>
 
