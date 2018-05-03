@@ -27,6 +27,14 @@ require '../App/middleware.php';
  *          ROUTES              *
  ********************************/
 
+// GET http://localhost:XXXX/api
+$app->get('/', function ($request, $response, $args) {
+    /**
+     * This fetches the 'index.php'-file inside the 'views'-folder
+     */
+    return $this->view->render($response, 'index.php');
+});
+
 /**
  * I added basic inline login functionality. This could be extracted to a
  * separate class. If the session is set is checked in 'auth.php'
@@ -89,14 +97,6 @@ $app->get('/logout', function ($request, $response, $args) {
  * but we don't have to check for auth when calling '/signin'
  */
 $app->group('/api', function () use ($app) {
-
-    // GET http://localhost:XXXX/api
-    $app->get('/', function ($request, $response, $args) {
-        /**
-         * This fetches the 'index.php'-file inside the 'views'-folder
-         */
-        return $this->view->render($response, 'index.php');
-    });
 
     // GET http://localhost:XXXX/api/todos
     $app->get('/todos', function ($request, $response, $args) {

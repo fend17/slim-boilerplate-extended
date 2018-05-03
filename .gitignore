@@ -1,4 +1,3 @@
 vendor
 .DS_Store
 *.log
-composer.lock
